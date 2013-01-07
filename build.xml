@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="testbot" name="ant-bot-test">
+	<property environment="env" />
+	<property name="src" location="src" />
+	<property name="server" value="crp" />
+	<property name="build.dir" location="bin" />
+	<path id="project.class.path">
+		<fileset dir="d:/tools/smack_3_1_0" includes="**/*.jar" />
+	</path>
+
+	<taskdef name="antbot"
+	         classname="com.jabber.AntBot"
+	         classpath="antbot.jar;d:\tools\smack\smack_3_1_0\smack.jar;d:\tools\smack\smack_3_1_0\smackx.jar" />
+
+	<target name="build">
+		<javac srcdir="${src}" destdir="${build.dir}" encoding="utf-8">
+			<classpath refid="project.class.path" />
+		</javac>
+		<jar destfile="antbot.jar" basedir="${build.dir}" />
+	</target>
+
+	<target name="testbot" depends="build">
+		<antbot wait="20"
+		        contactList="agzamovr@gmail.com"
+		        login="ecc.ant.bot@gmail.com"
+		        password="dct[jhjij"
+		        message="${server} будет перезагружен через %d секунд. Возможные ответы:">
+	1. no, если не согласны; 
+	2. ok, если согласны; 
+	3. число, если нужно подождать указнное к-во секунд
+		</antbot>
+	</target>
+</project>
